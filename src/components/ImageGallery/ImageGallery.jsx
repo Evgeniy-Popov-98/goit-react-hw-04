@@ -1,33 +1,31 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import ImageCard from "../ImageCard/ImageCard";
 import { getImages } from "../../services/API";
 
 const ImageGallery = ({ valueInput }) => {
   //   const [query, setQuery] = useState("");
-
+  const [card, setCard] = useState([]);
   //   useEffect(() => {
   async function dataImages() {
     try {
       // setIsLoading(true); - loader
       const data = await getImages("cat");
-      // setProducts(data.products);
-      console.log(data);
+      setCard(data.results);
     } catch (error) {
       // setIsError(true);
     } finally {
       // setIsLoading(false);
     }
   }
-
   dataImages();
-  //   }, [query]);
+  //   }, card);
 
+  console.log(card);
   return (
     <ul>
-      {/* Набір елементів списку із зображеннями */}
-      <li>
-        <ImageCard />
-      </li>
+      {card.map((item) => {
+        return <ImageCard key={item.id} dataImages={item.urls} />;
+      })}
     </ul>
   );
 };

@@ -1,8 +1,11 @@
-const ImageCard = ({}) => {
+const ImageCard = ({ dataImages }) => {
+  //   console.log(dataImages);
   return (
-    <div>
-      <img src="" alt="" />
-    </div>
+    <li>
+      <div>
+        <img src={dataImages.small} alt={dataImages.description} />
+      </div>
+    </li>
   );
 };
 
