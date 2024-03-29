@@ -22,24 +22,13 @@ function App() {
   const [modalValueImg, setModalValueImg] = useState(null);
 
   useEffect(() => {
-    if (valueInput.length === 0) {
-      setShowLoreMore(false);
-      return;
-    } else if (pageNumber > 1) {
-      setMoreLoader(true);
-    } else {
-      setLoader(true);
-    }
+    if (!valueInput) return;
+
     async function dataImages() {
+      setError(false);
       try {
-        setError(false);
         const data = await getImages(valueInput, pageNumber);
-        if (pageNumber > 1) {
-          let newArrData = [...cardArr, ...data];
-          setCardArr(newArrData);
-        } else {
-          setCardArr(data);
-        }
+        setCardArr([...cardArr, ...data]);
         setShowLoreMore(true);
       } catch (error) {
         setShowLoreMore(false);
@@ -53,13 +42,15 @@ function App() {
   }, [valueInput, pageNumber]);
 
   const onSubmit = (event) => {
+    setLoader(true);
+    setCardArr([]);
+    setPageNumber(1);
     setValueInput(event);
   };
 
-  const onClick = (newpage) => {
+  const onClick = () => {
     setMoreLoader(true);
-    newpage += 1;
-    setPageNumber(newpage);
+    setPageNumber(pageNumber + 1);
   };
 
   const openModal = (event) => {
