@@ -44,10 +44,9 @@ function App() {
     async function dataImages() {
       try {
         setError(false);
-        setLoader(true);
+        setMoreLoader(true);
         const data = await getImages(valueInput, pageNumber);
         if (pageNumber > 1) {
-          setMoreLoader(true);
           let newArrData = [...cardArr, ...data];
           setCardArr(newArrData);
         } else {
