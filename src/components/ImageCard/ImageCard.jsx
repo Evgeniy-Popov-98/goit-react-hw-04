@@ -1,9 +1,15 @@
+import clsx from "clsx";
+import style from "./ImageCard.module.css";
+
 const ImageCard = ({ dataImages }) => {
-  //   console.log(dataImages);
   return (
-    <li>
+    <li className={clsx(style.galleryItem)}>
       <div>
-        <img src={dataImages.small} alt={dataImages.description} />
+        <img
+          className={clsx(style.galleryImage)}
+          src={dataImages.small}
+          alt={dataImages.description}
+        />
       </div>
     </li>
   );

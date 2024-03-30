@@ -1,31 +1,14 @@
-import { useEffect, useState } from "react";
 import ImageCard from "../ImageCard/ImageCard";
-import { getImages } from "../../services/API";
+import clsx from "clsx";
+import style from "./ImageGallery.module.css";
 
-const ImageGallery = ({ valueInput }) => {
-  //   const [query, setQuery] = useState("");
-  const [card, setCard] = useState([]);
-  //   useEffect(() => {
-  async function dataImages() {
-    try {
-      // setIsLoading(true); - loader
-      const data = await getImages("cat");
-      setCard(data.results);
-    } catch (error) {
-      // setIsError(true);
-    } finally {
-      // setIsLoading(false);
-    }
-  }
-  dataImages();
-  //   }, card);
-
-  console.log(card);
+const ImageGallery = ({ cardImages }) => {
   return (
-    <ul>
-      {card.map((item) => {
-        return <ImageCard key={item.id} dataImages={item.urls} />;
-      })}
+    <ul className={clsx(style.galleryList)}>
+      {Array.isArray(cardImages) &&
+        cardImages.map((item) => {
+          return <ImageCard key={item.id} dataImages={item.urls} />;
+        })}
     </ul>
   );
 };
