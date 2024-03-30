@@ -28,6 +28,7 @@ function App() {
         const data = await getImages(valueInput);
         setCardArr(data);
       } catch (error) {
+        setShowLoreMore(false);
         setError(true);
       } finally {
         setLoader(false);
@@ -58,7 +59,6 @@ function App() {
       } finally {
         setLoader(false);
         setMoreLoader(false);
-        setShowLoreMore(true);
       }
     }
     dataImages();
@@ -68,6 +68,7 @@ function App() {
     setPageNumber(1);
     setCardArr([]);
     setValueOnpit(event);
+    setShowLoreMore(true);
   };
 
   const onClick = (newpage) => {
