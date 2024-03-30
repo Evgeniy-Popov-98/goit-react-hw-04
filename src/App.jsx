@@ -12,6 +12,7 @@ import ImageModal from "./components/ImageModal/ImageModal";
 function App() {
   const [cardArr, setCardArr] = useState([]);
   const [loader, setLoader] = useState(false);
+  const [moreLoader, setMoreLoader] = useState(false);
   const [error, setError] = useState(false);
   const [valueInput, setValueOnpit] = useState("");
   const [pageNumber, setPageNumber] = useState(1);
@@ -24,8 +25,29 @@ function App() {
       try {
         setError(false);
         setLoader(true);
+        const data = await getImages(valueInput);
+        setCardArr(data);
+      } catch (error) {
+        setError(true);
+      } finally {
+        setLoader(false);
+      }
+    }
+    dataImages();
+  }, []);
+
+  useEffect(() => {
+    if (valueInput.length === 0) {
+      setShowLoreMore(false);
+      return;
+    }
+    async function dataImages() {
+      try {
+        setError(false);
+        setLoader(true);
         const data = await getImages(valueInput, pageNumber);
         if (pageNumber > 1) {
+          setMoreLoader(true);
           let newArrData = [...cardArr, ...data];
           setCardArr(newArrData);
         } else {
@@ -36,6 +58,8 @@ function App() {
         setError(true);
       } finally {
         setLoader(false);
+        setMoreLoader(false);
+        setShowLoreMore(true);
       }
     }
     dataImages();
@@ -45,10 +69,10 @@ function App() {
     setPageNumber(1);
     setCardArr([]);
     setValueOnpit(event);
-    setShowLoreMore(true);
   };
 
   const onClick = (newpage) => {
+    setMoreLoader(true);
     setPageNumber(newpage);
   };
 
@@ -66,6 +90,7 @@ function App() {
       ) : (
         <ImageGallery cardImages={cardArr} openModal={openModal} />
       )}
+      {moreLoader && <Loader />}
       {showLoreMore && (
         <LoadMoreBtn onClick={onClick} pageNumber={pageNumber} />
       )}
