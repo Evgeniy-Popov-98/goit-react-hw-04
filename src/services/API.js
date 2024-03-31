@@ -9,7 +9,7 @@ export async function getImages(search, page = 1) {
   const params = {
     client_id: `${ACCESS_KEY}`,
     page: `${page}`,
-    per_page: 10,
+    per_page: 12,
     query: `${search}`,
   };
   const res = await axios.get(url, { params });
