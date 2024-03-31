@@ -16,6 +16,7 @@ export async function getImages(search, page = 1) {
   if (res.data.results.length === 0) {
     throw new Error("Error!");
   } else {
+    console.log(res.data.results);
     return res.data.results;
   }
 }

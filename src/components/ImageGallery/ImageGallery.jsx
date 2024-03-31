@@ -8,11 +8,7 @@ const ImageGallery = ({ cardImages, openModal }) => {
       {Array.isArray(cardImages) &&
         cardImages.map((item) => {
           return (
-            <ImageCard
-              key={item.id}
-              dataImages={item.urls}
-              openModal={openModal}
-            />
+            <ImageCard key={item.id} dataImages={item} openModal={openModal} />
           );
         })}
     </ul>

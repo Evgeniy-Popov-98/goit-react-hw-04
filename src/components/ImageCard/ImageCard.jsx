@@ -5,8 +5,8 @@ const ImageCard = ({ dataImages, openModal }) => {
   const handleClick = () => {
     const object = {
       bool: true,
-      src: dataImages.regular,
-      alt: dataImages.description,
+      src: dataImages.urls.regular,
+      alt: dataImages.urls.alt_description,
     };
     openModal(object);
   };
@@ -15,10 +15,16 @@ const ImageCard = ({ dataImages, openModal }) => {
       <div>
         <img
           className={clsx(style.galleryImage)}
-          src={dataImages.small}
-          alt={dataImages.description}
+          src={dataImages.urls.small}
+          alt={dataImages.urls.alt_description}
           onClick={handleClick}
         />
+        <ul className={clsx(style.galleryList)}>
+          <li className={clsx(style.listItem)}>
+            Location: {dataImages.user.location}
+          </li>
+          <li className={clsx(style.listItem)}>Likes: {dataImages.likes}</li>
+        </ul>
       </div>
     </li>
   );

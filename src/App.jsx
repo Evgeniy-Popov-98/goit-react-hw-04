@@ -11,11 +11,11 @@ import ImageModal from "./components/ImageModal/ImageModal";
 import MoreLoader from "./components/MoreLoader/MoreLoader";
 
 function App() {
-  const [cardArr, setCardArr] = useState([]);
+  const [cardArr, setCardArr] = useState(null);
   const [loader, setLoader] = useState(false);
   const [moreLoader, setMoreLoader] = useState(false);
   const [error, setError] = useState(false);
-  const [valueInput, setValueOnpit] = useState("");
+  const [valueInput, setValueInput] = useState("");
   const [pageNumber, setPageNumber] = useState(1);
   const [showLoreMore, setShowLoreMore] = useState(false);
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -53,9 +53,7 @@ function App() {
   }, [valueInput, pageNumber]);
 
   const onSubmit = (event) => {
-    setPageNumber(1);
-    setCardArr([]);
-    setValueOnpit(event);
+    setValueInput(event);
   };
 
   const onClick = (newpage) => {
