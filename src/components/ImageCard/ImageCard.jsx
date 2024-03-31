@@ -11,12 +11,13 @@ const ImageCard = ({ dataImages, openModal }) => {
     openModal(object);
   };
   return (
-    <li className={clsx(style.galleryItem)} onClick={handleClick}>
+    <li className={clsx(style.galleryItem)}>
       <div>
         <img
           className={clsx(style.galleryImage)}
           src={dataImages.small}
           alt={dataImages.description}
+          onClick={handleClick}
         />
       </div>
     </li>

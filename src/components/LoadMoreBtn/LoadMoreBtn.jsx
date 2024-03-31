@@ -4,7 +4,7 @@ import style from "./LoadMoreBtn.module.css";
 const LoadMoreBtn = ({ onClick, pageNumber }) => {
   const handleClick = (event) => {
     event.preventDefault();
-    onClick((pageNumber += 1));
+    onClick(pageNumber);
   };
   return (
     <button

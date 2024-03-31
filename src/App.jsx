@@ -8,6 +8,7 @@ import Loader from "./components/Loader/Loader";
 import ErrorMessage from "./components/ErrorMessage/ErrorMessage";
 import LoadMoreBtn from "./components/LoadMoreBtn/LoadMoreBtn";
 import ImageModal from "./components/ImageModal/ImageModal";
+import MoreLoader from "./components/MoreLoader/MoreLoader";
 
 function App() {
   const [cardArr, setCardArr] = useState([]);
@@ -21,31 +22,17 @@ function App() {
   const [modalValueImg, setModalValueImg] = useState(null);
 
   useEffect(() => {
-    async function dataImages() {
-      try {
-        setError(false);
-        setLoader(true);
-        const data = await getImages(valueInput);
-        setCardArr(data);
-      } catch (error) {
-        setShowLoreMore(false);
-        setError(true);
-      } finally {
-        setLoader(false);
-      }
-    }
-    dataImages();
-  }, []);
-
-  useEffect(() => {
     if (valueInput.length === 0) {
       setShowLoreMore(false);
       return;
+    } else if (pageNumber > 1) {
+      setMoreLoader(true);
+    } else {
+      setLoader(true);
     }
     async function dataImages() {
       try {
         setError(false);
-        setMoreLoader(true);
         const data = await getImages(valueInput, pageNumber);
         if (pageNumber > 1) {
           let newArrData = [...cardArr, ...data];
@@ -53,6 +40,7 @@ function App() {
         } else {
           setCardArr(data);
         }
+        setShowLoreMore(true);
       } catch (error) {
         setShowLoreMore(false);
         setError(true);
@@ -68,11 +56,11 @@ function App() {
     setPageNumber(1);
     setCardArr([]);
     setValueOnpit(event);
-    setShowLoreMore(true);
   };
 
   const onClick = (newpage) => {
     setMoreLoader(true);
+    newpage += 1;
     setPageNumber(newpage);
   };
 
@@ -90,7 +78,7 @@ function App() {
       ) : (
         <ImageGallery cardImages={cardArr} openModal={openModal} />
       )}
-      {moreLoader && <Loader />}
+      {moreLoader && <MoreLoader />}
       {showLoreMore && (
         <LoadMoreBtn onClick={onClick} pageNumber={pageNumber} />
       )}
