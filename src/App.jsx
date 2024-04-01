@@ -11,7 +11,7 @@ import ImageModal from "./components/ImageModal/ImageModal";
 import MoreLoader from "./components/MoreLoader/MoreLoader";
 
 function App() {
-  const [cardArr, setCardArr] = useState(null);
+  const [cardArr, setCardArr] = useState([]);
   const [loader, setLoader] = useState(false);
   const [moreLoader, setMoreLoader] = useState(false);
   const [error, setError] = useState(false);
@@ -28,7 +28,7 @@ function App() {
       setError(false);
       try {
         const data = await getImages(valueInput, pageNumber);
-        setCardArr([...cardArr, ...data]);
+        setCardArr((prevState) => [...prevState, ...data]);
         setShowLoreMore(true);
       } catch (error) {
         setShowLoreMore(false);
